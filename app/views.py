@@ -12,7 +12,7 @@ def index_page(request):
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
     images = services.getAllImages(None)
-    favourite_list = []
+    favourite_list = services.getAllFavourites(request)
 
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
@@ -24,7 +24,7 @@ def search(request):
     if (search_msg != ''):
         #obtiene las imagenes de los personajes buscados
         images = services.getAllImages(search_msg)
-        favourite_list = []
+        favourite_list = services.getAllFavourites(request)
         return render(request,"home.html",{ 'images': images,"favourite_list": favourite_list})
     else:
         return redirect('home')
@@ -45,7 +45,9 @@ def saveFavourite(request):
 
 @login_required
 def deleteFavourite(request):
-    pass
+    services.deleteFavourite(request)
+    favourite_list = services.getAllFavourites(request)
+    return render(request, 'favourites.html', { 'favourite_list': favourite_list })
 
 @login_required
 def exit(request):
