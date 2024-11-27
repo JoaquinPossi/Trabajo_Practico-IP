@@ -5,12 +5,14 @@ from ...config import config
 
 # comunicación con la REST API.
 # este método se encarga de "pegarle" a la API y traer una lista de objetos JSON crudos (raw).
-def getAllImages(input=None):
+def getAllImages(input=None,pagina="1"):
     if input is None:
-        json_response = requests.get(config.DEFAULT_REST_API_URL).json()
+        if pagina == "":
+            json_response = requests.get(config.DEFAULT_REST_API_URL + "1").json()
+        else:
+            json_response = requests.get(config.DEFAULT_REST_API_URL + pagina).json()
     else:
         json_response = requests.get(config.DEFAULT_REST_API_SEARCH + input).json()
-
     json_collection = []
 
     # si la búsqueda no arroja resultados, entonces retornamos una lista vacía de elementos.

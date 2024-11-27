@@ -11,10 +11,11 @@ def index_page(request):
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
-    images = services.getAllImages(None)
+    pagina = request.GET.get("page","1")
+    images = services.getAllImages(None,pagina)
     favourite_list = services.getAllFavourites(request)
-
-    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+    next_page = str(int(pagina)+1)
+    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list ,'page': pagina,"next_page" : next_page,"prev_page" : str(int(pagina) - 1)})
 
 def search(request):
     search_msg = request.POST.get('query', '')

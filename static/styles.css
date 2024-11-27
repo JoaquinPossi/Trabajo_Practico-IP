@@ -152,3 +152,6 @@ table.table td i {
 .unknown{
     border: solid  orange;
 }
+.oculto{
+    display: none;
+}
