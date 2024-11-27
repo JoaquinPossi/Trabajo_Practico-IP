@@ -140,3 +140,15 @@ table.table td i {
     margin-top: 6px;
     font-size: 95%;
 }
+
+.Alive{
+    border: solid  greenyellow;
+}
+
+.Dead{
+    border: solid  red;
+}
+
+.Unknown{
+    border: solid  orange;
+}
